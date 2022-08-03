@@ -733,7 +733,7 @@ Install_Main(){
 
 	MEM_TOTAL=$(free -g|grep Mem|awk '{print $2}')
 	if [ "${MEM_TOTAL}" -le "1" ];then
-		Auto_Swap
+		[[ -z "$NOSWAP" ]] && Auto_Swap
 	fi
 	
 	if [ "${PM}" = "yum" ]; then
@@ -744,7 +744,11 @@ Install_Main(){
 
 	Install_Python_Lib
 	Install_Bt
-	
+
+	if [ ! -z "$BT_SELFHOST" ]; then
+		wget -O /www/server/selfhost.sh $bt_Url/install/selfhost.sh
+		bash /www/server/selfhost.sh -s "$BT_SELFHOST" -d /www/server/panel
+	fi
 
 	Set_Bt_Panel
 	Service_Add
