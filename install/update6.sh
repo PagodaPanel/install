@@ -110,7 +110,7 @@ chmod +x /etc/init.d/bt
 echo "====================================="
 rm -f /dev/shm/bt_sql_tips.pl
 kill $(ps aux|grep -E "task.pyc|main.py"|grep -v grep|awk '{print $2}')
-/etc/init.d/bt start
+/etc/init.d/bt retart
 echo 'True' > /www/server/panel/data/restart.pl
 pkill -9 gunicorn &
 echo "已成功升级到[$version]${Ver}";
