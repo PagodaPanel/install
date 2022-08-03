@@ -11,12 +11,12 @@ if [ ! -d /www/server/panel/BTPanel ];then
 fi
 
 download_Url='https://github.com/PagodaPanel/LinuxPanel/releases'
-bt_Url='https://raw.githubusercontent.com/PagodaPanel/Pagoda/master'
+bt_Url='https://raw.githubusercontent.com/PagodaPanel/install/master'
 
 cn=$(curl -fsSL -m 10 http://ipinfo.io/json | grep "\"country\": \"CN\"")
 if [[ "$cn" != "" ]];then
 	download_Url='https://ghproxy.com/github.com/PagodaPanel/LinuxPanel/releases'
-	bt_Url='https://fastly.jsdelivr.net/gh/PagodaPanel/Pagoda@latest'
+	bt_Url='https://fastly.jsdelivr.net/gh/PagodaPanel/install@latest'
 fi
 
 Centos8Check=$(cat /etc/redhat-release | grep ' 8.' | grep -iE 'centos|Red Hat')

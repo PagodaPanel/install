@@ -4,12 +4,12 @@ export PATH
 LANG=en_US.UTF-8
 
 panel_Url='https://github.com/PagodaPanel/LinuxPanel/releases/latest/download/install.zip'
-bt_Url='https://raw.githubusercontent.com/PagodaPanel/Pagoda/master'
+bt_Url='https://raw.githubusercontent.com/PagodaPanel/install/master'
 
 cn=$(curl -fsSL -m 10 http://ipinfo.io/json | grep "\"country\": \"CN\"")
 if [[ "$cn" != "" ]];then
 	panel_Url='https://ghproxy.com/github.com/PagodaPanel/LinuxPanel/releases/latest/download/install.zip'
-	bt_Url='https://fastly.jsdelivr.net/gh/PagodaPanel/Pagoda@latest'
+	bt_Url='https://fastly.jsdelivr.net/gh/PagodaPanel/install@latest'
 fi
 
 if [ "$1" == "dev" ];then
