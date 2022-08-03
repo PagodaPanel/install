@@ -1,0 +1,15 @@
+[Unit]
+Description=BT-Panel - simple and safe web control panel
+Documentation=https://www.bt.cn/new/btcode.html
+After=network-online.target remote-fs.target nss-lookup.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+ExecStart=/etc/init.d/bt start
+ExecReload=/etc/init.d/bt reload
+ExecStop=/etc/init.d/bt stop
+
+[Install]
+WantedBy=multi-user.target
+
