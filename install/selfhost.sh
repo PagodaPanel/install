@@ -51,7 +51,8 @@ Replace(){
     sed -i "s|http://www.example.com|${SERVER}|g" ${BTDIR}/class/panelPlugin.py
     sed -i "s|#temp_file = temp_file.replace|temp_file = temp_file.replace|g" ${BTDIR}/class/panelPlugin.py
 
-    grep -rl 'update6.sh' ${BTDIR} | xargs -I @ sed -i "s|https://cdn.jsdelivr.net/gh/PagodaPanel/install/install/update6.sh|${SERVER}/install/update6.sh|g" @
+    # Uncomment it to use btcloud update script
+    #grep -rl 'update6.sh' ${BTDIR} | xargs -I @ sed -i "s|https://cdn.jsdelivr.net/gh/PagodaPanel/install/install/update6.sh|${SERVER}/install/update6.sh|g" @
 }
 
 if [ -z "$ZIPFILE" ] ;then
