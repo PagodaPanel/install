@@ -65,6 +65,12 @@ rm -f /www/server/panel/class/*.pyc
 #pip install flask_sqlalchemy
 #pip install itsdangerous==0.24
 
+[[ -e $setup_path/server/panel/data/selfhost.pl ]] && BT_SELFHOST=$(cat $setup_path/server/panel/data/selfhost.pl | tr -d '[:space:]')
+if [ ! -z "$BT_SELFHOST" ]; then
+	wget -O /tmp/selfhost.sh $bt_Url/install/selfhost.sh
+	bash /tmp/selfhost.sh -s "$BT_SELFHOST" -d $setup_path/server/panel
+fi
+
 pip_list=$($mypip list)
 request_v=$(echo "$pip_list"|grep requests)
 if [ "$request_v" = "" ];then

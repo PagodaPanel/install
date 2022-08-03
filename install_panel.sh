@@ -745,9 +745,11 @@ Install_Main(){
 	Install_Python_Lib
 	Install_Bt
 
+	[[ -e /www/server/panel/data/selfhost.pl ]] && BT_SELFHOST=$(cat /www/server/panel/data/selfhost.pl | tr -d '[:space:]')
 	if [ ! -z "$BT_SELFHOST" ]; then
-		wget -O /www/server/selfhost.sh $bt_Url/install/selfhost.sh
-		bash /www/server/selfhost.sh -s "$BT_SELFHOST" -d /www/server/panel
+		wget -O /tmp/selfhost.sh $bt_Url/install/selfhost.sh
+		bash /tmp/selfhost.sh -s "$BT_SELFHOST" -d /www/server/panel
+		echo "$BT_SELFHOST" > /www/server/panel/data/selfhost.pl
 	fi
 
 	Set_Bt_Panel
