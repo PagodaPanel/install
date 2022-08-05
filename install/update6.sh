@@ -109,8 +109,11 @@ chattr -i /etc/init.d/bt
 chmod +x /etc/init.d/bt
 echo "====================================="
 rm -f /dev/shm/bt_sql_tips.pl
-kill $(ps aux|grep -E "task.pyc|main.py"|grep -v grep|awk '{print $2}')
-/etc/init.d/bt retart
+oldproc=$(ps aux|grep -E "task.pyc|main.py"|grep -v grep|awk '{print $2}')
+if [ ! -z "$oldproc" ]; then
+	kill $oldproc
+fi
+/etc/init.d/bt restart
 echo 'True' > /www/server/panel/data/restart.pl
 pkill -9 gunicorn &
 echo "已成功升级到[$version]${Ver}";
