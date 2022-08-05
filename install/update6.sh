@@ -34,13 +34,18 @@ fi
 
 setup_path=/www
 #version=$(curl -Ss --connect-timeout 5 -m 2 https://www.bt.cn/api/panel/get_version)
-version=''
+version=$(grep -o "g.version = '.*'" /www/server/panel/class/common.py | cut -d "'" -f 2)
+
+if [ ! -z "$1" ]; then
+	version="$1"
+fi
 
 armCheck=$(uname -m|grep arm)
 if [ "${armCheck}" ];then
 	echo "Not support!" && exit
 fi
-if [ "$version" = '' ];then
+
+if [ "$version" = 'latest' ];then
 	wget -T 5 -O /tmp/panel.zip $download_Url/latest/download/update.zip
 else
 	wget -T 5 -O /tmp/panel.zip $download_Url/download/v${version}/update.zip
@@ -117,5 +122,3 @@ fi
 echo 'True' > /www/server/panel/data/restart.pl
 pkill -9 gunicorn &
 echo "已成功升级到[$version]${Ver}";
-
-
