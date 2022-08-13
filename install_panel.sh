@@ -445,6 +445,9 @@ Install_Python_Lib(){
 	if [ "${os_version}" != "" ];then
 		pyenv_file="/www/pyenv.tar.gz"
 		wget -O $pyenv_file $download_Url/install/pyenv/pyenv-${os_type}${os_version}-x${is64bit}.tar.gz -T 10
+		if [ "$?" != "0" ];then
+			wget -O $pyenv_file $download_Url/install/pyenv/pyenv-${os_type}${os_version}-x${is64bit}.tar.gz -T 10
+		fi
 		tmp_size=$(du -b $pyenv_file|awk '{print $1}')
 		if [ $tmp_size -lt 703460 ];then
 			rm -f $pyenv_file
@@ -776,6 +779,12 @@ done
 
 if [ "$go" == 'n' ];then
 	exit;
+fi
+
+ARCH_LINUX=$(cat /etc/os-release |grep "Arch Linux")
+if [ "${ARCH_LINUX}" ] && [ -f "/usr/bin/pacman" ];then
+	pacman -Sy 
+    pacman -S curl wget unzip firewalld openssl pkg-config make gcc cmake libxml2 libxslt libvpx gd libsodium oniguruma sqlite libzip autoconf inetutils sudo --noconfirm
 fi
 
 Install_Main
